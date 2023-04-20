@@ -129,3 +129,11 @@ dmypy.json
 .pyre/
 
 .DS_Store
+
+# virtual environment
+gaze-track-venv/
+
+# dataset
+app_data/
+processed_data/
+converted_data/
