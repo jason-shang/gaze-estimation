@@ -9,3 +9,6 @@
     * `src/datasets` contains the Python scripts for converting from app data to processed data, then from processed data to converted data
     * `src/pred` contains code for the gaze estimation model
 * `torchscript/` contains the torchscript models for on-device mobile inference
+
+### Install
+This project uses Python 3. To install the required packages, run the following command: `pip install -r requirements.txt`. 
