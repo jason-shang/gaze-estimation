@@ -134,6 +134,7 @@ dmypy.json
 gaze-track-venv/
 
 # dataset
+data/
 app_data/
 processed_data/
 converted_data/
