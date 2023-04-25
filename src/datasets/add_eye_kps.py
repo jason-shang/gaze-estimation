@@ -8,6 +8,8 @@ from tqdm import tqdm
 
 '''
 Add eye landmarks to the MIT Gaze Capture Dataset using DLib
+
+Example usage: run `python add_eye_kps.py --dir ../../data/converted_data/converted_041823-19:30`
 '''
 
 import argparse

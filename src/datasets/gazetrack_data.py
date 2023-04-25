@@ -7,7 +7,6 @@ from glob import glob
 from PIL import Image
 import torch
 from torchvision.transforms import Normalize, Resize, Compose, ToTensor, RandomCrop
-import sys
 from torch.utils.data import Dataset, DataLoader
 
 class gazetrack_dataset(Dataset):
@@ -58,13 +57,13 @@ class gazetrack_dataset(Dataset):
         
         kps = torch.tensor(kps).float()
         
-        #out = torch.tensor([meta['dot_xcam'], meta['dot_y_cam']]).float()
+        out = torch.tensor([meta['dot_xcam'], meta['dot_y_cam']]).float()
         
         l_eye = self.aug(l_eye)
         r_eye = self.aug(r_eye)
         
-        # return self.files[idx], l_eye, r_eye, kps, out, screen_w, screen_h, np.argmax(orientation)
-        return self.files[idx], l_eye, r_eye, kps, screen_w, screen_h, np.argmax(orientation)
+        return self.files[idx], l_eye, r_eye, kps, out, screen_w, screen_h, np.argmax(orientation)
+        # return self.files[idx], l_eye, r_eye, kps, screen_w, screen_h, np.argmax(orientation)
     
     def get_transforms(self, phase, size):
         list_transforms = []
