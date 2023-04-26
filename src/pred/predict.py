@@ -1,4 +1,6 @@
 import argparse
+import torch
+import json
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 from glob import glob
@@ -24,6 +26,8 @@ parser.add_argument('--weight_file', default='../../checkpoints/checkpoint.ckpt'
 parser.add_argument('--threads', default=1, help='Number of threads', type=int)
 
 def euc(a, b):
+    print("a shape: ", a.shape)
+    print("b shape: ", b.shape)
     return np.sqrt(np.sum(np.square(a - b), axis=1))
 
 def predict(dirs, out_root, weight_file): 
@@ -39,7 +43,7 @@ def predict(dirs, out_root, weight_file):
 
         preds, gt, ors = [], [], []
         test_dataset = gazetrack_dataset(f, phase='test')
-        test_dataloader = DataLoader(test_dataset, batch_size=512, num_workers=10, pin_memory=False, shuffle=False,)
+        test_dataloader = DataLoader(test_dataset, batch_size=512, num_workers=8, pin_memory=False, shuffle=False,)
 
         for j in tqdm(test_dataloader):
             leye, reye, kps, target, ori = j[1].to(device), j[2].to(device), j[3].to(device), j[4].to(device), j[-1]
@@ -51,7 +55,7 @@ def predict(dirs, out_root, weight_file):
             ors.extend(ori)
             
             gt.extend(target.detach().cpu().numpy())
-        
+
         preds = np.array(preds)
         gt = np.array(gt)
         ors = np.array(ors)
@@ -63,7 +67,7 @@ def predict(dirs, out_root, weight_file):
         results['orientation'] = ors.tolist()
         results['error'] = dist.tolist()
 
-        path = '/' + out_root + '/' + directory + '_results.json'
+        path = out_root + '/' + directory.split('/')[-2] + '_results.json'
         with open(path, 'w') as outfile: 
             json.dump(results, outfile)
 
