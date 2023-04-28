@@ -26,8 +26,6 @@ parser.add_argument('--weight_file', default='../../checkpoints/checkpoint.ckpt'
 parser.add_argument('--threads', default=1, help='Number of threads', type=int)
 
 def euc(a, b):
-    print("a shape: ", a.shape)
-    print("b shape: ", b.shape)
     return np.sqrt(np.sum(np.square(a - b), axis=1))
 
 def predict(dirs, out_root, weight_file): 

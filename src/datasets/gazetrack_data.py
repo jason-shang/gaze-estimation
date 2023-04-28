@@ -94,4 +94,3 @@ if __name__ == '__main__':
         num_workers=20,
         pin_memory=False,
         shuffle=False,)
-    
